@@ -5,7 +5,7 @@ import { colors } from '../styles/constants';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import GuestItem from '../components/GuestItem';
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams, useSearchParams } from 'expo-router';
 
 type Guest = {
   id: string;
@@ -18,8 +18,8 @@ type Guest = {
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function Index() {
-  const { guest } = useSearchParams();
-
+  const { firstName, lastName } = useLocalSearchParams();
+  
   let [guests, setGuests] = useState([
     {
       id: 1,
@@ -38,11 +38,11 @@ export default function Index() {
   ]);
 
   useEffect(() => {
-    if (guest) {
-      // @ts-ignore
-      setGuests([...guests, guest]);
+    console.log("Now I have a guest: ", firstName, lastName)
+    if (firstName && lastName ) {
+      setGuests([...guests, {id: 1, firstName, lastName, attending: false, deadline: 'none'}]);
     }
-  }, [guest]);
+  }, [firstName, lastName]);
   let [fontsLoaded] = useFonts({
     Pacifico_400Regular,
   });

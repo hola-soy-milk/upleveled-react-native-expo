@@ -12,11 +12,8 @@ type NativeStackParams = {
 };
 
 type Guest = {
-  id: string;
   firstName: string;
   lastName: string;
-  deadline?: string;
-  attending: boolean;
 };
 
 export default function NewPost() {
@@ -50,17 +47,7 @@ export default function NewPost() {
         value={lastName}
       />
       <Link
-        href={{
-          pathname: '/index',
-          params: {
-            guest: {
-              id: '1',
-              firstName,
-              lastName,
-              attending: false,
-            },
-          },
-        }}
+        href={`/?firstName=${firstName}&lastName=${lastName}`}
       >
         Add
       </Link>
