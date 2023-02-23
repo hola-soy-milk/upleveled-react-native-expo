@@ -1,0 +1,17 @@
+guest-list-mobile/node_modules/
+guest-list-mobile/.expo/
+guest-list-mobile/dist/
+guest-list-mobile/npm-debug.*
+guest-list-mobile/*.jks
+guest-list-mobile/*.p8
+guest-list-mobile/*.p12
+guest-list-mobile/*.key
+guest-list-mobile/*.mobileprovision
+guest-list-mobile/*.orig.*
+guest-list-mobile/web-build/
+
+# macOS
+.DS_Store
+
+guest-list-mobile/.eslintcache
+guest-list-mobile/*.tsbuildinfo
