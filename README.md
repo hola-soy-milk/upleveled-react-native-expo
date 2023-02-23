@@ -171,7 +171,7 @@ import { colors } from "./styles/constants";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
   });
 
@@ -220,7 +220,7 @@ type Guest = {
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
   });
 
@@ -348,7 +348,7 @@ const guests = [
 Let's replace our `guests` const with `useState`:
 
 ```javascript
-let [guests, setGuests] = useState([
+const [guests, setGuests] = useState([
   {
     id: 1,
     firstName: "Miralda",
@@ -421,36 +421,32 @@ import "expo-router/entry";
 Let's add a link to the new guest screen to `./app/index.tsx`:
 
 ```typescript
-import { Link, useSearchParams } from "expo-router";
-//...
-
 export default function Index() {
-  const { guest } = useSearchParams();
+  const { firstName, lastName } = useLocalSearchParams();
 
-  let [guests, setGuests] = useState([
+  const [guests, setGuests] = useState([
     {
-      id: 1,
-      firstName: "Miralda",
-      lastName: "Flores",
-      deadline: "none",
+      id: '1',
+      firstName: 'Miralda',
+      lastName: 'Flores',
+      deadline: 'none',
       attending: true,
     },
     {
-      id: 2,
-      firstName: "Ximena",
-      lastName: "Alvarez",
-      deadline: "none",
+      id: '2',
+      firstName: 'Ximena',
+      lastName: 'Alvarez',
+      deadline: 'none',
       attending: false,
     },
   ]);
 
   useEffect(() => {
-    if (guest) {
-      // @ts-ignore
-      setGuests([...guests, guest]);
+    if (firstName && lastName ) {
+      setGuests([...guests, {id: 1, firstName, lastName, attending: false, deadline: 'none'}]);
     }
-  }, [guest]);
-  let [fontsLoaded] = useFonts({
+  }, [firstName, lastName]);
+  const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
   });
 
@@ -468,8 +464,108 @@ export default function Index() {
         renderItem={renderItem}
         keyExtractor={(item: Guest) => item.id}
       />
-      <Link href="/new-post">New Post</Link>
+      <Link href="/new-guest">New Guest</Link>
     </View>
   );
 }
 ```
+
+Next, we'll add `app/new-guest.tsx`:
+
+```typescript
+import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import Header from '../components/Header';
+import { colors } from '../styles/constants';
+import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import { Link } from 'expo-router';
+
+export default function NewGuest() {
+  const [firstName, onFirstName] = useState('');
+  const [lastName, onLastName] = useState('');
+  const [fontsLoaded] = useFonts({
+    Pacifico_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+  return (
+    <View style={styles.container}>
+      <Header label="New Guest" />
+      <StatusBar
+        backgroundColor={colors.cardBackground}
+        translucent={true}
+        style="dark"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={onFirstName}
+        placeholder="First Name"
+        value={firstName}
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={onLastName}
+        placeholder="Last Name"
+        value={lastName}
+      />
+      <Link
+        href={`/?firstName=${firstName}&lastName=${lastName}`}
+      >
+        Add
+      </Link>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%',
+  },
+});
+```
+
+## 💾 Saving to the API
+
+React Native gives us access to the `fetch` API! Let's use it to connect to a running instance of the [Guest List API](https://github.com/upleveled/express-guest-list-api-memory-data-store).
+
+In `app/index.tsx`, let's adapt our `useEffect` callback:
+
+```typescript
+useEffect(() => {
+    async function loadGuests() {
+      const response = await fetch(`${API_URL}/guests`);
+      const fetchedGuests: Guest[] = await response.json();
+      setGuests(fetchedGuests)
+    }
+    async function postGuest(guest: Guest) {
+      const response = await fetch(`${API_URL}/guests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName }),
+      })
+      const newGuest: Guest = await response.json();
+      setGuests([...guests, newGuest])
+    }
+    loadGuests();
+
+    if (firstName && lastName ) {
+      postGuest({firstName, lastName})
+    }
+  }, [firstName, lastName]);
+```
+
+What's this constant we see? Why at the top of the file, add our API URL!

@@ -4,19 +4,9 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import Header from '../components/Header';
 import { colors } from '../styles/constants';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Link } from 'expo-router';
 
-type NativeStackParams = {
-  index: { guest: Guest };
-};
-
-type Guest = {
-  firstName: string;
-  lastName: string;
-};
-
-export default function NewPost() {
+export default function NewGuest() {
   const [firstName, onFirstName] = useState('');
   const [lastName, onLastName] = useState('');
   let [fontsLoaded] = useFonts({
@@ -62,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  list: {
+  input: {
     marginTop: 30,
     paddingLeft: 30,
     paddingRight: 30,

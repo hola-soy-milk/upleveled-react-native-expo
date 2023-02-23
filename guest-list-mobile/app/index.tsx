@@ -5,7 +5,7 @@ import { colors } from '../styles/constants';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import GuestItem from '../components/GuestItem';
 import { useEffect, useState } from 'react';
-import { Link, useLocalSearchParams, useSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 
 type Guest = {
   id: string;
@@ -15,35 +15,41 @@ type Guest = {
   attending: boolean;
 };
 
+const API_URL = "http://45063d72-10f4-4077-a954-686bc0c70988.id.repl.co"
+
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function Index() {
   const { firstName, lastName } = useLocalSearchParams();
   
-  let [guests, setGuests] = useState([
-    {
-      id: 1,
-      firstName: 'Miralda',
-      lastName: 'Flores',
-      deadline: 'none',
-      attending: true,
-    },
-    {
-      id: 2,
-      firstName: 'Ximena',
-      lastName: 'Alvarez',
-      deadline: 'none',
-      attending: false,
-    },
+  const [guests, setGuests] = useState<Guest[]>([
   ]);
 
   useEffect(() => {
-    console.log("Now I have a guest: ", firstName, lastName)
+    async function loadGuests() {
+      const response = await fetch(`${API_URL}/guests`);
+      const fetchedGuests: Guest[] = await response.json();
+      setGuests(fetchedGuests)
+    }
+    async function postGuest(guest: Guest) {
+      const response = await fetch(`${API_URL}/guests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName }),
+      })
+      const newGuest: Guest = await response.json();
+      setGuests([...guests, newGuest])
+    }
+    loadGuests();
+
     if (firstName && lastName ) {
-      setGuests([...guests, {id: 1, firstName, lastName, attending: false, deadline: 'none'}]);
+      postGuest({firstName, lastName})
     }
   }, [firstName, lastName]);
-  let [fontsLoaded] = useFonts({
+
+  const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
   });
 
@@ -61,7 +67,7 @@ export default function Index() {
         renderItem={renderItem}
         keyExtractor={(item: Guest) => item.id}
       />
-      <Link href="/new-post">New Post</Link>
+      <Link href="/new-guest">New Guest</Link>
     </View>
   );
 }
