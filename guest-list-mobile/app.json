@@ -1,5 +1,10 @@
 {
   "expo": {
+    "scheme": "guest-list-mobile",
+  
+      "web": {
+        "bundler": "metro"
+      },
     "name": "guest-list-mobile",
     "slug": "guest-list-mobile",
     "version": "1.0.0",

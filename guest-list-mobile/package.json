@@ -2,12 +2,6 @@
   "name": "guest-list-mobile",
   "version": "1.0.0",
   "main": "App.tsx",
-  "expo": {
-    "scheme": "guest-list-mobile",
-    "web": {
-      "bundler": "metro"
-    }
-  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",

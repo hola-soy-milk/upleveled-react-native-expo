@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, StyleSheet, View } from 'react-native';
-import Header from '../constants/Header';
+import Header from '../components/Header';
 import { colors } from '../styles/constants';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import GuestItem from '../constants/GuestItem';
-import { useState } from 'react';
+import GuestItem from '../components/GuestItem';
+import { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'expo-router';
 
 type Guest = {
   id: string;
@@ -17,41 +18,52 @@ type Guest = {
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function Index() {
+  const { guest } = useSearchParams();
+
   let [guests, setGuests] = useState([
     {
       id: 1,
       firstName: 'Miralda',
       lastName: 'Flores',
+      deadline: 'none',
       attending: true,
     },
     {
       id: 2,
       firstName: 'Ximena',
       lastName: 'Alvarez',
+      deadline: 'none',
       attending: false,
     },
   ]);
+
+  useEffect(() => {
+    if (guest) {
+      // @ts-ignore
+      setGuests([...guests, guest]);
+    }
+  }, [guest]);
   let [fontsLoaded] = useFonts({
     Pacifico_400Regular,
   });
 
   if (!fontsLoaded) {
     return null;
-  } else {
-    return (
-      <View style={styles.container}>
-        <Header label="Guest List" />
-        <StatusBar style="auto" />
-
-        <FlatList
-          style={styles.list}
-          data={guests}
-          renderItem={renderItem}
-          keyExtractor={(item: Guest) => item.id}
-        />
-      </View>
-    );
   }
+  return (
+    <View style={styles.container}>
+      <Header label="Guest List" />
+      <StatusBar style="auto" />
+
+      <FlatList
+        style={styles.list}
+        data={guests}
+        renderItem={renderItem}
+        keyExtractor={(item: Guest) => item.id}
+      />
+      <Link href="/new-post">New Post</Link>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
