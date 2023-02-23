@@ -7,9 +7,9 @@
 ## 💻 [bit.ly/ul-rn-expo](https://bit.ly/ul-rn-expo-2023)
 
 <div style="display:flex;">
-<img src="https://user-images.githubusercontent.com/656318/155584657-9c36c352-e0bb-41c0-9c8b-ba11c0cdd509.png" alt="Screenshot showing Kind Words app with empty list" width="150"/> 
-<img src="https://user-images.githubusercontent.com/656318/155584776-18683ba8-ac28-490d-984e-da040cd5829b.png" alt="Screenshot showing Kind Words app with new Post form" width="150"/> 
-<img src="https://user-images.githubusercontent.com/656318/155584871-77d2f3f3-a0fb-486d-91c9-d693140071ed.png" alt="Screenshot showing Kind Words app with populated list" width="150"/> 
+<img src="https://user-images.githubusercontent.com/656318/155584657-9c36c352-e0bb-41c0-9c8b-ba11c0cdd509.png" alt="Screenshot showing Kind Words app with empty list" width="150"/>
+<img src="https://user-images.githubusercontent.com/656318/155584776-18683ba8-ac28-490d-984e-da040cd5829b.png" alt="Screenshot showing Kind Words app with new Post form" width="150"/>
+<img src="https://user-images.githubusercontent.com/656318/155584871-77d2f3f3-a0fb-486d-91c9-d693140071ed.png" alt="Screenshot showing Kind Words app with populated list" width="150"/>
 </div>
 
 ## 💜 Hi, I'm Ramón!
@@ -371,3 +371,51 @@ Next we'll need a screen to add guests. That's where screens come in.
 We're gonna use `expo-router` to create navigable screens.
 
 First, let's shut down the app in the terminal.
+
+Next, let's install Expo Router:
+
+    ./node_modules/.bin/expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+
+Go into `package.json` and change `main` and add the following:
+
+```json
+  "main": "App.tsx",
+  "expo": {
+    "scheme": "guest-list-mobile",
+    "web": {
+      "bundler": "metro"
+    }
+  },
+```
+
+Also add the following to `resolutions`:
+
+```json
+"metro": "0.73.7",
+"metro-resolver": "0.73.7"
+```
+
+Change the `babel.config.js` to the following:
+
+```javascript
+module.exports = function (api) {
+  api.cache(true);
+  return {
+    presets: ["babel-preset-expo"],
+    plugins: [
+      // NOTE: `expo-router/babel` is a temporary extension to `babel-preset-expo`.
+      require.resolve("expo-router/babel"),
+    ],
+  };
+};
+```
+
+Create a `index.ts` with the following:
+
+```typescript
+import "expo-router/entry";
+```
+
+
+
+
