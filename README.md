@@ -348,13 +348,13 @@ Let's replace our `guests` const with `useState`:
 ```javascript
 const [guests, setGuests] = useState([
   {
-    id: 1,
+    id: '1',
     firstName: "Miralda",
     lastName: "Flores",
     attending: true,
   },
   {
-    id: 2,
+    id: '2',
     firstName: "Ximena",
     lastName: "Alvarez",
     attending: false,

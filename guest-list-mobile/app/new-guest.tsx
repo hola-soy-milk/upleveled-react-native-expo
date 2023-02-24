@@ -18,7 +18,7 @@ export default function NewGuest() {
   }
   return (
     <View style={styles.container}>
-      <Header label="New Post" />
+      <Header label="New Guest" />
       <StatusBar
         backgroundColor={colors.cardBackground}
         translucent={true}
@@ -49,8 +49,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   input: {
     marginTop: 30,
