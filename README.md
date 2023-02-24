@@ -1,6 +1,8 @@
 # Let's learn React Native/Expo!
 
-## 💻 [bit.ly/ul-rn-expo](https://bit.ly/ul-rn-expo-2023)
+## 💻 [bit.ly/ul-rn-expo-2023](https://bit.ly/ul-rn-expo-2023)
+
+![QR Code for instructions](https://user-images.githubusercontent.com/656318/221058958-3f0c51ba-bcf7-448e-8a6d-95f0976c445e.png)
 
 <div style="display:flex;">
 <img width="442" alt="Screenshot of running app" src="https://user-images.githubusercontent.com/656318/221058614-48edef4e-5040-46c9-963d-91d2e15fb574.png">
