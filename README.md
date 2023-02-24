@@ -327,13 +327,13 @@ In `App.tsx`, after defining `renderItem`:
 ```javascript
 const guests = [
   {
-    id: 1,
+    id: '1',
     firstName: "Miralda",
     lastName: "Flores",
     attending: true,
   },
   {
-    id: 2,
+    id: '2',
     firstName: "Ximena",
     lastName: "Alvarez",
     attending: false,
@@ -441,7 +441,7 @@ export default function Index() {
 
   useEffect(() => {
     if (firstName && lastName ) {
-      setGuests([...guests, {id: 1, firstName, lastName, attending: false, deadline: 'none'}]);
+      setGuests([...guests, {id: '1', firstName, lastName, attending: false, deadline: 'none'}]);
     }
   }, [firstName, lastName]);
   const [fontsLoaded] = useFonts({
