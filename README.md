@@ -1,15 +1,9 @@
-- Blank typescript
-- guest-list-mobile
-- yarn android
-
 # Let's learn React Native/Expo!
 
 ## 💻 [bit.ly/ul-rn-expo](https://bit.ly/ul-rn-expo-2023)
 
 <div style="display:flex;">
-<img src="https://user-images.githubusercontent.com/656318/155584657-9c36c352-e0bb-41c0-9c8b-ba11c0cdd509.png" alt="Screenshot showing Kind Words app with empty list" width="150"/>
-<img src="https://user-images.githubusercontent.com/656318/155584776-18683ba8-ac28-490d-984e-da040cd5829b.png" alt="Screenshot showing Kind Words app with new Post form" width="150"/>
-<img src="https://user-images.githubusercontent.com/656318/155584871-77d2f3f3-a0fb-486d-91c9-d693140071ed.png" alt="Screenshot showing Kind Words app with populated list" width="150"/>
+<img width="442" alt="Screenshot of running app" src="https://user-images.githubusercontent.com/656318/221058614-48edef4e-5040-46c9-963d-91d2e15fb574.png">
 </div>
 
 ## 💜 Hi, I'm Ramón!
@@ -36,7 +30,7 @@ Let's create a new Expo project:
 yarn create expo-app --template
 ```
 
-We're making a blank TypeScript app, as shown below:
+We're making a blank TypeScript app.
 
 Once everything is done installing, let's open it up and bring the terminal in:
 
@@ -58,6 +52,8 @@ First, let's take a look inside `package.json`:
 ```
 
 Let's start up the app with `yarn start`. Our terminal will look like this:
+<img width="728" alt="Terminal with QR code and options" src="https://user-images.githubusercontent.com/656318/221058734-f052a8b0-513b-4d8b-bc6e-866f51b4c60f.png">
+
 
 With this running, press `a` (for Android!) and Android Studio will automatically start up, install Expo Go, and show your app.
 
