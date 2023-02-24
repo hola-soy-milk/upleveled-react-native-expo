@@ -410,7 +410,7 @@ module.exports = function (api) {
 };
 ```
 
-Create a `index.ts` with the following:
+Move `App.tsx` to `app/index.tsx` (make sure imports and component names move along!), and create a new App.tsx with the following:
 
 ```typescript
 import "expo-router/entry";
