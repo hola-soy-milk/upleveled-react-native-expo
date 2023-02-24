@@ -378,12 +378,6 @@ Go into `package.json` and change `main` and add the following:
 
 ```json
   "main": "App.tsx",
-  "expo": {
-    "scheme": "guest-list-mobile",
-    "web": {
-      "bundler": "metro"
-    }
-  },
 ```
 
 Also add the following to `resolutions`:
@@ -391,6 +385,14 @@ Also add the following to `resolutions`:
 ```json
 "metro": "0.73.7",
 "metro-resolver": "0.73.7"
+```
+
+In `app.json`, add the following to 'expo': 
+```json
+    "scheme": "guest-list-mobile",
+    "web": {
+      "bundler": "metro"
+    }
 ```
 
 Change the `babel.config.js` to the following:
