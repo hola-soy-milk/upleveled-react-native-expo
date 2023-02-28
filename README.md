@@ -377,7 +377,7 @@ Next, let's install Expo Router:
 Go into `package.json` and change `main` and add the following:
 
 ```json
-  "main": "App.tsx",
+  "main": "index.tsx",
 ```
 
 Also add the following to `resolutions`:
@@ -387,7 +387,7 @@ Also add the following to `resolutions`:
 "metro-resolver": "0.73.7"
 ```
 
-In `app.json`, add the following to 'expo': 
+In `app.json`, add the following to 'expo':
 ```json
     "scheme": "guest-list-mobile",
     "web": {
@@ -410,7 +410,7 @@ module.exports = function (api) {
 };
 ```
 
-Move `App.tsx` to `app/index.tsx` (make sure imports and component names move along!), and create a new App.tsx with the following:
+Move `App.tsx` to `app/index.tsx` (make sure imports and component names move along!), and create a new `index.tsx` with the following:
 
 ```typescript
 import "expo-router/entry";
@@ -446,28 +446,32 @@ export default function Index() {
       setGuests([...guests, {id: '1', firstName, lastName, attending: false, deadline: 'none'}]);
     }
   }, [firstName, lastName]);
-  const [fontsLoaded] = useFonts({
-    Pacifico_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
-    <View style={styles.container}>
-      <Header label="Guest List" />
-      <StatusBar style="auto" />
-
+    <>
       <FlatList
         style={styles.list}
         data={guests}
         renderItem={renderItem}
         keyExtractor={(item: Guest) => item.id}
       />
-      <Link href="/new-guest">New Guest</Link>
-    </View>
+      <Link styles={styles.button} href="/new-guest">New Guest</Link>
+    <>
   );
 }
+```
+
+Add the following button styles:
+
+```typescript
+  button: {
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.cardBackground,
+    fontSize: 24,
+  },
 ```
 
 Next, we'll add `app/new-guest.tsx`:
@@ -478,27 +482,13 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 import Header from '../components/Header';
 import { colors } from '../styles/constants';
-import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Link } from 'expo-router';
 
 export default function NewGuest() {
   const [firstName, onFirstName] = useState('');
   const [lastName, onLastName] = useState('');
-  const [fontsLoaded] = useFonts({
-    Pacifico_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
-    <View style={styles.container}>
-      <Header label="New Guest" />
-      <StatusBar
-        backgroundColor={colors.cardBackground}
-        translucent={true}
-        style="dark"
-      />
+    <>
       <TextInput
         style={styles.input}
         onChangeText={onFirstName}
@@ -512,11 +502,12 @@ export default function NewGuest() {
         value={lastName}
       />
       <Link
+        styles={styles.button}
         href={`/?firstName=${firstName}&lastName=${lastName}`}
       >
         Add
       </Link>
-    </View>
+    <>
   );
 }
 
@@ -532,6 +523,70 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     width: '100%',
+  },
+  button: {
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.cardBackground,
+    fontSize: 24,
+  },
+});
+```
+
+Hold on, where'd our font and header go? Let's create `app/_layout.tsx`:
+
+```typescript
+import { Slot, usePathname } from 'expo-router';
+import Header from '../components/Header';
+import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
+import { View, StyleSheet, StatusBar } from 'react-native';
+import { colors } from '../styles/constants';
+
+function routeMapping(pathname: string) {
+  switch (pathname) {
+    case '/':
+      return 'Guest List';
+    case '/new-guest':
+      return 'New Guest';
+    default:
+      return '';
+  }
+}
+
+export default function HomeLayout() {
+  const pathname = usePathname();
+  const label = routeMapping(pathname);
+  const [fontsLoaded] = useFonts({
+    Pacifico_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+  return (
+    <View style={styles.container}>
+      <Header label={label} />
+      <StatusBar style="auto" />
+      <View style={styles.slot}>
+        <Slot />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingBottom: 40,
+  },
+  slot: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
 });
 ```
