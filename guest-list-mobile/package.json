@@ -1,7 +1,7 @@
 {
   "name": "guest-list-mobile",
   "version": "1.0.0",
-  "main": "App.tsx",
+  "main": "index.ts",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",

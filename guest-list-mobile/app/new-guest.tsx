@@ -1,29 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import Header from '../components/Header';
+import { StyleSheet, View, TextInput } from 'react-native';
 import { colors } from '../styles/constants';
-import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { Link } from 'expo-router';
 
 export default function NewGuest() {
   const [firstName, onFirstName] = useState('');
   const [lastName, onLastName] = useState('');
-  let [fontsLoaded] = useFonts({
-    Pacifico_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
-    <View style={styles.container}>
-      <Header label="New Guest" />
-      <StatusBar
-        backgroundColor={colors.cardBackground}
-        translucent={true}
-        style="dark"
-      />
+    <>
+      <View>
       <TextInput
         style={styles.input}
         onChangeText={onFirstName}
@@ -36,24 +21,33 @@ export default function NewGuest() {
         placeholder="Last Name"
         value={lastName}
       />
+      </View>
       <Link
+        style={styles.button}
         href={`/?firstName=${firstName}&lastName=${lastName}`}
       >
         Add
       </Link>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
   input: {
     marginTop: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
+    backgroundColor: '#FFFFFF',
+    borderColor: colors.cardShadow,
+    borderWidth: 3,
+    padding: 5,
     width: '100%',
+  },
+  button: {
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.cardBackground,
+    fontSize: 24,
   },
 });
