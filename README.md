@@ -29,10 +29,8 @@ If you wish to work on your mobile device, go ahead and install [Expo Go](https:
 Let's create a new Expo project:
 
 ```
-yarn create expo-app --template
+yarn create expo-app --template expo-template-blank-typescript
 ```
-
-We're making a blank TypeScript app.
 
 Once everything is done installing, let's open it up and bring the terminal in:
 
