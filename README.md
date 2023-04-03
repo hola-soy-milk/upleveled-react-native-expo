@@ -162,7 +162,7 @@ We'll be integrating the Google [Pacifico Font](https://fonts.google.com/specime
 
 Let's do this using expo's packages:
 
-    pnpm add @expo-google-fonts/pacifico expo-font
+    npx expo install @expo-google-fonts/pacifico expo-font
 
 Let's now integrate them into our App.tsx:
 
@@ -377,7 +377,7 @@ First, let's shut down the app in the terminal.
 
 Next, let's install Expo Router:
 
-    pnpm add expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+    npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
 
 Go into `package.json` and change `main` and add the following:
 
