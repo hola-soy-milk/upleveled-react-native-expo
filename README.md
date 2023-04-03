@@ -29,15 +29,20 @@ If you wish to work on your mobile device, go ahead and install [Expo Go](https:
 Let's create a new Expo project:
 
 ```
-yarn create expo-app --template
+pnpm create expo-app --template expo-template-blank-typescript
 ```
 
-We're making a blank TypeScript app.
+Configuring pnpm to use the hoisted `node_modules` structure, and installing the project's dependencies using `pnpm install --force`.
+
+```
+cd guest-list-mobile
+echo 'node-linker=hoisted' > ./.npmrc
+pnpm install --force
+```
 
 Once everything is done installing, let's open it up and bring the terminal in:
 
-    cd guest-list-mobile
-    code .
+      code .
 
 Before proceeding, let's set up the [UpLeveled ESLint Config](https://github.com/upleveled/eslint-config-upleveled)!
 
@@ -53,7 +58,7 @@ First, let's take a look inside `package.json`:
   },
 ```
 
-Let's start up the app with `yarn start`. Our terminal will look like this:
+Let's start up the app with `pnpm start`. Our terminal will look like this:
 <img width="728" alt="Terminal with QR code and options" src="https://user-images.githubusercontent.com/656318/221058734-f052a8b0-513b-4d8b-bc6e-866f51b4c60f.png">
 
 
@@ -157,7 +162,7 @@ We'll be integrating the Google [Pacifico Font](https://fonts.google.com/specime
 
 Let's do this using expo's packages:
 
-    npx expo install @expo-google-fonts/pacifico expo-font
+    pnpm add @expo-google-fonts/pacifico expo-font
 
 Let's now integrate them into our App.tsx:
 
@@ -372,7 +377,7 @@ First, let's shut down the app in the terminal.
 
 Next, let's install Expo Router:
 
-    npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+    pnpm add expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
 
 Go into `package.json` and change `main` and add the following:
 
@@ -380,14 +385,8 @@ Go into `package.json` and change `main` and add the following:
   "main": "index.tsx",
 ```
 
-Also add the following to `resolutions`:
-
-```json
-"metro": "0.73.7",
-"metro-resolver": "0.73.7"
-```
-
 In `app.json`, add the following to 'expo':
+
 ```json
     "scheme": "guest-list-mobile",
     "web": {
