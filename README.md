@@ -29,7 +29,7 @@ If you wish to work on your mobile device, go ahead and install [Expo Go](https:
 Let's create a new Expo project:
 
 ```
-pnpm create expo-app --template expo-template-blank-typescript
+pnpm create expo@latest --template expo-template-blank-typescript
 ```
 
 Configuring pnpm to use the hoisted `node_modules` structure, and installing the project's dependencies using `pnpm install --force`.
