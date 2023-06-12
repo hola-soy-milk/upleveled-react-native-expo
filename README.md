@@ -26,7 +26,7 @@ If you wish to work on your mobile device, go ahead and install [Expo Go](https:
 
 ## ✨ Start up the project
 
-Let's create a new Expo project:
+Let's create a new Expo project, calling it "guest-list-mobile":
 
 ```
 pnpm create expo@latest --template expo-template-blank-typescript
@@ -53,8 +53,7 @@ First, let's take a look inside `package.json`:
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "web": "expo start --web"
   },
 ```
 
