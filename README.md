@@ -641,27 +641,29 @@ React Native gives us access to the `fetch` API! Let's use it to connect to a ru
 In `app/index.tsx`, let's adapt our `useEffect` callback:
 
 ```typescript
-useEffect(() => {
+  const [guests, setGuests] = useState<Guest[]>([]);
+
+  useEffect(() => {
     async function loadGuests() {
       const response = await fetch(`${API_URL}/guests`);
       const fetchedGuests: Guest[] = await response.json();
-      setGuests(fetchedGuests)
+      setGuests(fetchedGuests);
     }
-    async function postGuest(guest: Guest) {
+    async function postGuest(guest: { firstName: string; lastName: string }) {
       const response = await fetch(`${API_URL}/guests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ firstName, lastName }),
-      })
+      });
       const newGuest: Guest = await response.json();
-      setGuests([...guests, newGuest])
+      setGuests([...guests, newGuest]);
     }
     loadGuests();
 
-    if (firstName && lastName ) {
-      postGuest({firstName, lastName})
+    if (typeof firstName === 'string' && typeof lastName === 'string') {
+      postGuest({ firstName, lastName });
     }
   }, [firstName, lastName]);
 ```
