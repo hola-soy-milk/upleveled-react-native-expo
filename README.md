@@ -376,7 +376,7 @@ First, let's shut down the app in the terminal.
 
 Next, let's install Expo Router:
 
-    npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+    npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar react-native-web react-dom
 
 Go into `package.json` and change `main` and add the following:
 
@@ -419,6 +419,22 @@ import "expo-router/entry";
 Let's add a link to the new guest screen to `./app/index.tsx`:
 
 ```typescript
+import { FlatList, StyleSheet, View } from 'react-native';
+import { colors } from '../styles/constants';
+import GuestItem from '../components/GuestItem';
+import { Link, useLocalSearchParams } from 'expo-router';
+import { useEffect, useState } from 'react';
+
+type Guest = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  deadline?: string;
+  attending: boolean;
+};
+
+const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
+
 export default function Index() {
   const { firstName, lastName } = useLocalSearchParams();
 
@@ -440,8 +456,11 @@ export default function Index() {
   ]);
 
   useEffect(() => {
-    if (firstName && lastName ) {
-      setGuests([...guests, {id: '1', firstName, lastName, attending: false, deadline: 'none'}]);
+    if (typeof firstName === 'string' && typeof lastName === 'string') {
+      setGuests([
+        ...guests,
+        { id: '1', firstName, lastName, attending: false, deadline: 'none' },
+      ]);
     }
   }, [firstName, lastName]);
   return (
@@ -452,10 +471,37 @@ export default function Index() {
         renderItem={renderItem}
         keyExtractor={(item: Guest) => item.id}
       />
-      <Link styles={styles.button} href="/new-guest">New Guest</Link>
-    <>
+      <Link style={styles.button} href="/new-guest">
+        New Guest
+      </Link>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.cardBackground,
+    fontSize: 24,
+  },
+  list: {
+    marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  text: {
+    color: colors.text,
+  },
+});
 ```
 
 Add the following button styles:
