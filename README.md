@@ -581,10 +581,11 @@ const styles = StyleSheet.create({
 Hold on, where'd our font and header go? Let's create `app/_layout.tsx`:
 
 ```typescript
+import { StatusBar } from 'expo-status-bar';
 import { Slot, usePathname } from 'expo-router';
 import Header from '../components/Header';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { colors } from '../styles/constants';
 
 function routeMapping(pathname: string) {
