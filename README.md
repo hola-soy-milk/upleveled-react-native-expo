@@ -521,10 +521,8 @@ Add the following button styles:
 Next, we'll add `app/new-guest.tsx`:
 
 ```typescript
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
-import Header from '../components/Header';
+import { StyleSheet, TextInput } from 'react-native';
 import { colors } from '../styles/constants';
 import { Link } from 'expo-router';
 
@@ -546,12 +544,12 @@ export default function NewGuest() {
         value={lastName}
       />
       <Link
-        styles={styles.button}
+        style={styles.button}
         href={`/?firstName=${firstName}&lastName=${lastName}`}
       >
         Add
       </Link>
-    <>
+    </>
   );
 }
 
