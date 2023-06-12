@@ -168,7 +168,7 @@ Let's now integrate them into our App.tsx:
 ```typescript
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import Header from "./constants/Header";
+import Header from "./components/Header";
 import { colors } from "./styles/constants";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 
