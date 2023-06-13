@@ -279,7 +279,7 @@ type Props = {
   guest: Guest;
 };
 
-export default function PostItem({ guest }: Props) {
+export default function GuestItem({ guest }: Props) {
   const { firstName, lastName, attending } = guest;
   return (
     <View style={styles.card}>
