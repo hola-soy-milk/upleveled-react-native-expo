@@ -436,7 +436,10 @@ type Guest = {
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function Index() {
-  const { firstName, lastName } = useLocalSearchParams<Pick<Guest, 'firstName' | 'lastName'>>();
+  const { firstName, lastName } = useLocalSearchParams<{
+    firstName?: Guest['firstName'];
+    lastName?: Guest['lastName'];
+  }>();
 
   const [guests, setGuests] = useState([
     {
