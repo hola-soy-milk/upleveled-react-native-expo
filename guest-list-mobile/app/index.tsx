@@ -17,7 +17,7 @@ const API_URL = "http://45063d72-10f4-4077-a954-686bc0c70988.id.repl.co"
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function Index() {
-  const { firstName, lastName } = useLocalSearchParams();
+  const { firstName, lastName } = useLocalSearchParams<Pick<Guest, 'firstName' | 'lastName'>>();
   
   const [guests, setGuests] = useState<Guest[]>([
   ]);
