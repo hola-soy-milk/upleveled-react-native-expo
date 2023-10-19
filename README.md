@@ -10,7 +10,13 @@
 
 ## 💜 Hi, I'm Ramón!
 
-I'm on Twitter [@hola_soy_milk](https://twitter.com/hola_soy_milk), if you wanna get in touch!
+If you wanna get in touch, I'm on:
+
+- [LinkedIn](https://www.linkedin.com/in/ramonhuidobro/)
+- [Mastodon](hola-soy-milk.online/@ramon)
+- [My Website](https://ramonh.dev)
+- Twitter [@hola_soy_milk](https://twitter.com/hola_soy_milk)
+
 
 Developer Relations, developer educator, inclusivity advocate. Over a decade of Software Engineering experience.
 
