@@ -678,3 +678,9 @@ In `app/index.tsx`, let's adapt our `useEffect` callback:
 ```
 
 What's this constant we see? Why at the top of the file, add our API URL!
+
+## 💁 Single guest dynamic routes
+
+## 🛜 Push it all to GitHub!
+
+## 🍪 What about cookies?
