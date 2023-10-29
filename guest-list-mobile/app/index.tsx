@@ -52,6 +52,7 @@ export default function Index() {
     }
 
     async function postGuest(guest: { firstName: string; lastName: string }) {
+      const { firstName, lastName } = guest;
       const response = await fetch(`${API_URL}/guests`, {
         method: 'POST',
         headers: {
@@ -59,8 +60,10 @@ export default function Index() {
         },
         body: JSON.stringify({ firstName, lastName }),
       });
-      const newGuest: Guest = await response.json();
-      setGuests([...guests, newGuest]);
+      try {
+        const newGuest: Guest = await response.json();
+        setGuests([...guests, newGuest]);
+      } catch {}
     }
     if (typeof firstName === 'string' && typeof lastName === 'string') {
       postGuest({ firstName, lastName });

@@ -46,7 +46,7 @@ export default function HomeLayout() {
   return (
     <View style={styles.container}>
       <Header label={label} />
-      <StatusBar style="auto" />
+      <StatusBar style="auto" /> {/* eslint-disable-line*/}
       <View style={styles.slot}>
         <Slot />
       </View>
