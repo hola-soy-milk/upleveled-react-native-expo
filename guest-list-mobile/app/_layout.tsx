@@ -1,9 +1,24 @@
-import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import { StyleSheet, Text, View } from 'react-native';
-import Header from '../components/Header';
-import { StatusBar } from 'expo-status-bar';
 import { Slot, usePathname } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+
+import { Pacifico_400Regular, useFonts } from '@expo-google-fonts/pacifico';
+
+import Header from '../components/Header';
 import { colors } from '../styles/constants';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingBottom: 40,
+  },
+  slot: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+});
 
 function routeMapping(pathname: string) {
   switch (pathname) {
@@ -38,16 +53,3 @@ export default function HomeLayout() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    paddingBottom: 40,
-  },
-  slot: {
-    flex: 1,
-    paddingLeft: 30,
-    paddingRight: 30,
-  },
-});

@@ -1,32 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../styles/constants';
 import { Link } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
 
-type Guest = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  deadline?: string;
-  attending: boolean;
-};
-
-type Props = {
-  guest: Guest;
-};
-
-export default function GuestItem({ guest }: Props) {
-  const { firstName, lastName, attending } = guest;
-
-  return (
-    <View style={styles.card}>
-      <Text style={styles.center}>
-        {firstName} {lastName}
-      </Text>
-      <Link href={`guests/${guest.id}`}>Check it out</Link>
-      <Text style={styles.right}>{attending ? 'Coming!' : 'Not Coming'}</Text>
-    </View>
-  );
-}
+import { colors } from '../styles/constants';
 
 const styles = StyleSheet.create({
   right: {
@@ -57,3 +32,29 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
 });
+
+type Guest = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  deadline?: string;
+  attending: boolean;
+};
+
+type Props = {
+  guest: Guest;
+};
+
+export default function GuestItem({ guest }: Props) {
+  const { firstName, lastName, attending } = guest;
+
+  return (
+    <View style={styles.card}>
+      <Text style={styles.center}>
+        {firstName} {lastName}
+      </Text>
+      <Link href={`guests/${guest.id}`}>Check it out</Link>
+      <Text style={styles.right}>{attending ? 'Coming!' : 'Not Coming'}</Text>
+    </View>
+  );
+}

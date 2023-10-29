@@ -1,19 +1,7 @@
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
-import { colors } from '../styles/constants';
 import Constants from 'expo-constants';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-type Props = {
-  label: string;
-};
-export default function Header(props: Props) {
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.label}>{props.label}</Text>
-      </View>
-    </SafeAreaView>
-  );
-}
+import { colors } from '../styles/constants';
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -31,3 +19,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Pacifico_400Regular',
   },
 });
+
+type Props = {
+  label: string;
+};
+export default function Header(props: Props) {
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text style={styles.label}>{props.label}</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
