@@ -70,7 +70,7 @@ export default function Index() {
         () => {},
       );
     }
-    loadGuests();
+    loadGuests().catch(() => {});
   }, [firstName, lastName]); /* eslint-disable-line*/
   return (
     <>
