@@ -63,7 +63,7 @@ export default function Index() {
         }),
       });
       const newGuest: Guest = await response.json();
-      setGuests([...guests, newGuest]);
+      setGuests((g) => [...g, newGuest]);
     }
     if (typeof firstName === 'string' && typeof lastName === 'string') {
       postGuest({ id: '0', attending: false, firstName, lastName }).catch(
