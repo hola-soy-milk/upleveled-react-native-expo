@@ -12,6 +12,7 @@ jobs:
           version: 'latest'
       - name: Use Node.js
         uses: actions/setup-node@v4
+        working-directory: guest-list-mobile
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
