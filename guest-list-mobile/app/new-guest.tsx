@@ -1,27 +1,25 @@
 import { useState } from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, Text, TextInput } from 'react-native';
 import { colors } from '../styles/constants';
 import { Link } from 'expo-router';
 
 export default function NewGuest() {
-  const [firstName, onFirstName] = useState('');
-  const [lastName, onLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   return (
     <>
-      <View>
       <TextInput
         style={styles.input}
-        onChangeText={onFirstName}
+        onChangeText={setFirstName}
         placeholder="First Name"
         value={firstName}
       />
       <TextInput
         style={styles.input}
-        onChangeText={onLastName}
+        onChangeText={setLastName}
         placeholder="Last Name"
         value={lastName}
       />
-      </View>
       <Link
         style={styles.button}
         href={`/?firstName=${firstName}&lastName=${lastName}`}
@@ -33,12 +31,16 @@ export default function NewGuest() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   input: {
     marginTop: 30,
-    backgroundColor: '#FFFFFF',
-    borderColor: colors.cardShadow,
-    borderWidth: 3,
-    padding: 5,
+    paddingLeft: 30,
+    paddingRight: 30,
     width: '100%',
   },
   button: {

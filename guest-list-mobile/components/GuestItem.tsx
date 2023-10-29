@@ -1,5 +1,6 @@
-import { Text, StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../styles/constants';
+import { Link } from 'expo-router';
 
 type Guest = {
   id: string;
@@ -13,14 +14,16 @@ type Props = {
   guest: Guest;
 };
 
-export default function PostItem({ guest }: Props) {
+export default function GuestItem({ guest }: Props) {
   const { firstName, lastName, attending } = guest;
+
   return (
     <View style={styles.card}>
       <Text style={styles.center}>
         {firstName} {lastName}
       </Text>
-      <Text style={styles.right}>{attending ? 'Coming!' : 'Not coming.'}</Text>
+      <Link href={`guests/${guest.id}`}>Check it out</Link>
+      <Text style={styles.right}>{attending ? 'Coming!' : 'Not Coming'}</Text>
     </View>
   );
 }

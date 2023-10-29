@@ -1,8 +1,8 @@
-import { FlatList, StyleSheet, View } from 'react-native';
-import { colors } from '../styles/constants';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import GuestItem from '../components/GuestItem';
 import { useEffect, useState } from 'react';
 import { Link, useLocalSearchParams } from 'expo-router';
+import { colors } from '../styles/constants';
 
 type Guest = {
   id: string;
@@ -12,7 +12,7 @@ type Guest = {
   attending: boolean;
 };
 
-const API_URL = "http://45063d72-10f4-4077-a954-686bc0c70988.id.repl.co"
+const API_URL = 'http://45063d72-10f4-4077-a954-686bc0c70988.id.repl.co';
 
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
@@ -21,34 +21,32 @@ export default function Index() {
     firstName?: Guest['firstName'];
     lastName?: Guest['lastName'];
   }>();
-  
-  const [guests, setGuests] = useState<Guest[]>([
-  ]);
+
+  const [guests, setGuests] = useState<Guest[]>([]);
 
   useEffect(() => {
     async function loadGuests() {
-      const response = await fetch(`${API_URL}/guests`);
-      const fetchedGuests: Guest[] = await response.json();
-      setGuests(fetchedGuests)
+      // const response = await fetch(`${API_URL}/guests`);
+      // const fetchedGuests: Guest[] = await response.json();
+      // setGuests(fetchedGuests);
     }
-    async function postGuest(guest: Guest) {
+
+    async function postGuest(guest: { firstName: string; lastName: string }) {
       const response = await fetch(`${API_URL}/guests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ firstName, lastName }),
-      })
+      });
       const newGuest: Guest = await response.json();
-      setGuests([...guests, newGuest])
+      setGuests([...guests, newGuest]);
+    }
+    if (typeof firstName === 'string' && typeof lastName === 'string') {
+      postGuest({ firstName, lastName });
     }
     loadGuests();
-
-    if (firstName && lastName ) {
-      postGuest({firstName, lastName})
-    }
   }, [firstName, lastName]);
-
   return (
     <>
       <FlatList
@@ -56,26 +54,28 @@ export default function Index() {
         data={guests}
         renderItem={renderItem}
         keyExtractor={(item: Guest) => item.id}
-      />
-      <Link style={styles.button} href="/new-guest">New Guest</Link>
+      ></FlatList>
+      <Link style={styles.button} href="/new-guest">
+        New Guest
+      </Link>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: colors.text,
-  },
   list: {
     marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
     width: '100%',
   },
   button: {
+    marginTop: 30,
     paddingTop: 10,
     paddingBottom: 10,
     width: '100%',
     textAlign: 'center',
     backgroundColor: colors.cardBackground,
-    fontSize: 24
-  }
+    fontSize: 24,
+  },
 });

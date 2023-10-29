@@ -1,12 +1,10 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
-import Constants from 'expo-constants';
+import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
 import { colors } from '../styles/constants';
+import Constants from 'expo-constants';
 
 type Props = {
   label: string;
 };
-
 export default function Header(props: Props) {
   return (
     <SafeAreaView style={styles.safeArea}>

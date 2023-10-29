@@ -1,7 +1,8 @@
-import { Slot, usePathname } from 'expo-router';
-import Header from '../components/Header';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Header from '../components/Header';
+import { StatusBar } from 'expo-status-bar';
+import { Slot, usePathname } from 'expo-router';
 import { colors } from '../styles/constants';
 
 function routeMapping(pathname: string) {
@@ -17,6 +18,7 @@ function routeMapping(pathname: string) {
 
 export default function HomeLayout() {
   const pathname = usePathname();
+
   const label = routeMapping(pathname);
   const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
@@ -25,6 +27,7 @@ export default function HomeLayout() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <View style={styles.container}>
       <Header label={label} />
