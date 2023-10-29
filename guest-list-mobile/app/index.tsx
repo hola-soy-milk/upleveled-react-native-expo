@@ -71,7 +71,7 @@ export default function Index() {
       );
     }
     loadGuests().catch(() => {});
-  }, [firstName, lastName]); /* eslint-disable-line*/
+  }, [firstName, lastName]);
   return (
     <>
       <FlatList
