@@ -52,13 +52,15 @@ export default function Index() {
     }
 
     async function postGuest(guest: Guest) {
-      const { firstName, lastName } = guest;
       const response = await fetch(`${API_URL}/guests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstName, lastName }),
+        body: JSON.stringify({
+          firstName: guest.firstName,
+          lastName: guest.lastName,
+        }),
       });
       const newGuest: Guest = await response.json();
       setGuests([...guests, newGuest]);
