@@ -60,16 +60,16 @@ export default function Index() {
         },
         body: JSON.stringify({ firstName, lastName }),
       });
-      try {
-        const newGuest: Guest = await response.json();
-        setGuests([...guests, newGuest]);
-      } catch {}
+      const newGuest: Guest = await response.json();
+      setGuests([...guests, newGuest]);
     }
     if (typeof firstName === 'string' && typeof lastName === 'string') {
-      postGuest({ id: '0', attending: false, firstName, lastName });
+      postGuest({ id: '0', attending: false, firstName, lastName }).catch(
+        () => {},
+      );
     }
     loadGuests();
-  }, [firstName, lastName]);
+  }, [firstName, lastName]); /* eslint-disable-line*/
   return (
     <>
       <FlatList

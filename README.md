@@ -273,30 +273,6 @@ Then let's define and style our guest item component. In `./components/GuestItem
 import { Text, StyleSheet, View } from "react-native";
 import { colors } from "../styles/constants";
 
-type Guest = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  deadline?: string;
-  attending: boolean;
-};
-
-type Props = {
-  guest: Guest;
-};
-
-export default function GuestItem({ guest }: Props) {
-  const { firstName, lastName, attending } = guest;
-  return (
-    <View style={styles.card}>
-      <Text style={styles.center}>
-        {firstName} {lastName}
-      </Text>
-      <Text style={styles.right}>{attending ? "Coming!" : "Not coming."}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   right: {
     textAlign: "right",
@@ -326,6 +302,30 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
 });
+
+type Guest = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  deadline?: string;
+  attending: boolean;
+};
+
+type Props = {
+  guest: Guest;
+};
+
+export default function GuestItem({ guest }: Props) {
+  const { firstName, lastName, attending } = guest;
+  return (
+    <View style={styles.card}>
+      <Text style={styles.center}>
+        {firstName} {lastName}
+      </Text>
+      <Text style={styles.right}>{attending ? "Coming!" : "Not coming."}</Text>
+    </View>
+  );
+}
 ```
 
 Still got one more undefined variable issue. Let's get right on it!
@@ -431,6 +431,31 @@ import GuestItem from '../components/GuestItem';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 
+const styles = StyleSheet.create({
+  button: {
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.cardBackground,
+    fontSize: 24,
+  },
+  list: {
+    marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  text: {
+    color: colors.text,
+  },
+});
+
 type Guest = {
   id: string;
   firstName: string;
@@ -486,31 +511,6 @@ export default function Index() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    marginTop: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    width: '100%',
-    textAlign: 'center',
-    backgroundColor: colors.cardBackground,
-    fontSize: 24,
-  },
-  list: {
-    marginTop: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
-    width: '100%',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  text: {
-    color: colors.text,
-  },
-});
 ```
 
 Add the following button styles:
@@ -534,6 +534,30 @@ import { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import { colors } from '../styles/constants';
 import { Link } from 'expo-router';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%',
+  },
+  button: {
+    marginTop: 30,
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: '100%',
+    textAlign: 'center',
+    backgroundColor: colors.cardBackground,
+    fontSize: 24,
+  },
+});
 
 export default function NewGuest() {
   const [firstName, onFirstName] = useState('');
@@ -562,29 +586,6 @@ export default function NewGuest() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input: {
-    marginTop: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
-    width: '100%',
-  },
-  button: {
-    marginTop: 30,
-    paddingTop: 10,
-    paddingBottom: 10,
-    width: '100%',
-    textAlign: 'center',
-    backgroundColor: colors.cardBackground,
-    fontSize: 24,
-  },
-});
 ```
 
 Hold on, where'd our font and header go? Let's create `app/_layout.tsx`:
@@ -596,6 +597,19 @@ import Header from '../components/Header';
 import { useFonts, Pacifico_400Regular } from '@expo-google-fonts/pacifico';
 import { View, StyleSheet } from 'react-native';
 import { colors } from '../styles/constants';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    paddingBottom: 40,
+  },
+  slot: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+});
 
 function routeMapping(pathname: string) {
   switch (pathname) {
@@ -628,19 +642,6 @@ export default function HomeLayout() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-    paddingBottom: 40,
-  },
-  slot: {
-    flex: 1,
-    paddingLeft: 30,
-    paddingRight: 30,
-  },
-});
 ```
 
 ## 💾 Saving to the API
