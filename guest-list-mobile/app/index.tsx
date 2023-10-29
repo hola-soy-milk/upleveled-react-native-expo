@@ -51,7 +51,7 @@ export default function Index() {
       // setGuests(fetchedGuests);
     }
 
-    async function postGuest(guest: { firstName: string; lastName: string }) {
+    async function postGuest(guest: Guest) {
       const { firstName, lastName } = guest;
       const response = await fetch(`${API_URL}/guests`, {
         method: 'POST',
@@ -66,7 +66,7 @@ export default function Index() {
       } catch {}
     }
     if (typeof firstName === 'string' && typeof lastName === 'string') {
-      postGuest({ firstName, lastName });
+      postGuest({ id: '0', attending: false, firstName, lastName });
     }
     loadGuests();
   }, [firstName, lastName]);
@@ -77,7 +77,7 @@ export default function Index() {
         data={guests}
         renderItem={renderItem}
         keyExtractor={(item: Guest) => item.id}
-      ></FlatList>
+      />
       <Link style={styles.button} href="/new-guest">
         New Guest
       </Link>

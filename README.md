@@ -122,20 +122,6 @@ import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 import Constants from "expo-constants";
 import { colors } from "../styles/constants";
 
-type Props = {
-  label: string;
-};
-
-export default function Header(props: Props) {
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.label}>{props.label}</Text>
-      </View>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: colors.cardBackground,
@@ -151,6 +137,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+type Props = {
+  label: string;
+};
+
+export default function Header(props: Props) {
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text style={styles.label}>{props.label}</Text>
+      </View>
+    </SafeAreaView>
+  );
+}
+
 ```
 
 From the [docs](https://reactnative.dev/docs/safeareaview):
@@ -178,6 +178,16 @@ import Header from "./components/Header";
 import { colors } from "./styles/constants";
 import { useFonts, Pacifico_400Regular } from "@expo-google-fonts/pacifico";
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  text: {
+    color: colors.text,
+  },
+});
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
@@ -194,16 +204,6 @@ export default function App() {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  text: {
-    color: colors.text,
-  },
-});
 ```
 
 Let's now set the header's text to be `"Pacifico_400Regular"` with the `fontFamily` style.
