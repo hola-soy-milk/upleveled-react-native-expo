@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'pnpm'
-          cache-dependency-path: guest-list-mobile
+          cache-dependency-path: guest-list-mobile/pnpm-lock.yaml
       - run: pnpm install
         working-directory: guest-list-mobile
       - run: pnpm eslint . --max-warnings 0
