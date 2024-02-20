@@ -401,7 +401,7 @@ In `app.json`, add the following to 'expo':
     }
 ```
 
-Change the `babel.config.js` to the following:
+Change the `babel.config.cjs` to the following:
 
 ```javascript
 module.exports = function (api) {
