@@ -44,6 +44,7 @@ Configuring pnpm to use the hoisted `node_modules` structure, and installing the
 cd guest-list-mobile
 echo 'node-linker=hoisted' > ./.npmrc
 pnpm install --force
+mv babel.config.js babel.config.cjs
 ```
 
 Once everything is done installing, let's open it up and bring the terminal in:
@@ -51,6 +52,7 @@ Once everything is done installing, let's open it up and bring the terminal in:
       code .
 
 Before proceeding, let's set up the [UpLeveled ESLint Config](https://github.com/upleveled/eslint-config-upleveled)!
+
 
 First, let's take a look inside `package.json`:
 
