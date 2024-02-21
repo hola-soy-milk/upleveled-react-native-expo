@@ -1,5 +1,5 @@
-import { ExpoRequest, ExpoResponse } from 'expo-router/server';
+import { ExpoResponse } from 'expo-router/server';
 
-export function GET(request: ExpoRequest) {
+export function GET() {
   return ExpoResponse.json({ hello: 'world' });
 }

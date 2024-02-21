@@ -30,19 +30,19 @@ const styles = StyleSheet.create({
 });
 
 export default function NewGuest() {
-  const [firstName, onFirstName] = useState('');
-  const [lastName, onLastName] = useState('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
   return (
     <>
       <TextInput
         style={styles.input}
-        onChangeText={onFirstName}
+        onChangeText={setFirstName}
         placeholder="First Name"
         value={firstName}
       />
       <TextInput
         style={styles.input}
-        onChangeText={onLastName}
+        onChangeText={setLastName}
         placeholder="Last Name"
         value={lastName}
       />

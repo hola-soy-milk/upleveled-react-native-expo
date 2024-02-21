@@ -68,16 +68,19 @@ export default function Index() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstName, lastName }),
+        body: JSON.stringify({
+          firstName: guest.firstName,
+          lastName: guest.lastName,
+        }),
       });
       const newGuest: Guest = await response.json();
-      setGuests([...guests, newGuest]);
+      setGuests((g) => [...g, newGuest]);
     }
-    loadGuests();
-    callApi();
+    loadGuests().catch(console.error);
+    callApi().catch(console.error);
 
     if (typeof firstName === 'string' && typeof lastName === 'string') {
-      postGuest({ firstName, lastName });
+      postGuest({ firstName, lastName }).catch(console.error);
     }
   }, [firstName, lastName]);
   return (

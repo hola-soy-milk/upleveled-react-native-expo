@@ -35,14 +35,18 @@ export default function Guests() {
 
   useEffect(() => {
     async function loadGuest() {
-      if (typeof id !== 'string') {
-        return;
+      try {
+        if (typeof id !== 'string') {
+          return;
+        }
+        const response = await fetch(`${API_URL}/guests/${id}`);
+        const fetchedGuest = await response.json();
+        setGuest(fetchedGuest);
+      } catch (error) {
+        console.error('Error fetching guest', error);
       }
-      const response = await fetch(`${API_URL}/guests/${id}`);
-      const fetchedGuest = await response.json();
-      setGuest(fetchedGuest);
     }
-    loadGuest();
+    loadGuest().catch(console.error);
   }, [id]);
 
   if (!guest) {
