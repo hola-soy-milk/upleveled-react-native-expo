@@ -1,5 +1,5 @@
-import { Link } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { colors } from '../styles/constants';
 
@@ -46,15 +46,19 @@ type Props = {
 };
 
 export default function GuestItem({ guest }: Props) {
-  const { firstName, lastName, attending } = guest;
-
+  const { id, firstName, lastName, attending } = guest;
+  const openGuest = () => {
+    router.push({
+      pathname: `/guests/[id]`,
+      params: { id },
+    });
+  };
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={openGuest}>
       <Text style={styles.center}>
         {firstName} {lastName}
       </Text>
-      <Link href={`guests/${guest.id}`}>Check it out</Link>
-      <Text style={styles.right}>{attending ? 'Coming!' : 'Not Coming'}</Text>
-    </View>
+      <Text style={styles.right}>{attending ? 'Coming!' : 'Not coming.'}</Text>
+    </TouchableOpacity>
   );
 }

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Constants from 'expo-constants';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
@@ -14,15 +16,15 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.text,
+    fontFamily: 'Pacifico_400Regular',
     fontSize: 32,
     textAlign: 'center',
-    fontFamily: 'Pacifico_400Regular',
   },
 });
-
 type Props = {
   label: string;
 };
+
 export default function Header(props: Props) {
   return (
     <SafeAreaView style={styles.safeArea}>

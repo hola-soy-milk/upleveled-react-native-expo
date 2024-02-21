@@ -33,7 +33,6 @@ function routeMapping(pathname: string) {
 
 export default function HomeLayout() {
   const pathname = usePathname();
-
   const label = routeMapping(pathname);
   const [fontsLoaded] = useFonts({
     Pacifico_400Regular,
@@ -42,7 +41,6 @@ export default function HomeLayout() {
   if (!fontsLoaded) {
     return null;
   }
-
   return (
     <View style={styles.container}>
       <Header label={label} />

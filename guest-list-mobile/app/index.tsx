@@ -6,13 +6,10 @@ import { FlatList, StyleSheet } from 'react-native';
 import GuestItem from '../components/GuestItem';
 import { colors } from '../styles/constants';
 
+const API_URL =
+  'https://37820499-b115-4574-94d1-64870873aef3-00-2o18dc9ex4s5s.spock.replit.dev';
+
 const styles = StyleSheet.create({
-  list: {
-    marginTop: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
-    width: '100%',
-  },
   button: {
     marginTop: 30,
     paddingTop: 10,
@@ -21,6 +18,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: colors.cardBackground,
     fontSize: 24,
+  },
+  list: {
+    marginTop: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    width: '100%',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  text: {
+    color: colors.text,
   },
 });
 
@@ -32,8 +42,6 @@ type Guest = {
   attending: boolean;
 };
 
-const API_URL = 'http://45063d72-10f4-4077-a954-686bc0c70988.id.repl.co';
-
 const renderItem = (item: { item: Guest }) => <GuestItem guest={item.item} />;
 
 export default function Index() {
@@ -41,36 +49,36 @@ export default function Index() {
     firstName?: Guest['firstName'];
     lastName?: Guest['lastName'];
   }>();
-
   const [guests, setGuests] = useState<Guest[]>([]);
 
   useEffect(() => {
-    async function loadGuests() {
-      // const response = await fetch(`${API_URL}/guests`);
-      // const fetchedGuests: Guest[] = await response.json();
-      // setGuests(fetchedGuests);
+    async function callApi() {
+      const response = await fetch(`/hello`);
+      const data = await response.json();
+      console.log(data);
     }
-
-    async function postGuest(guest: Guest) {
+    async function loadGuests() {
+      const response = await fetch(`${API_URL}/guests`);
+      const fetchedGuests: Guest[] = await response.json();
+      setGuests(fetchedGuests);
+    }
+    async function postGuest(guest: { firstName: string; lastName: string }) {
       const response = await fetch(`${API_URL}/guests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          firstName: guest.firstName,
-          lastName: guest.lastName,
-        }),
+        body: JSON.stringify({ firstName, lastName }),
       });
       const newGuest: Guest = await response.json();
-      setGuests((g) => [...g, newGuest]);
+      setGuests([...guests, newGuest]);
     }
+    loadGuests();
+    callApi();
+
     if (typeof firstName === 'string' && typeof lastName === 'string') {
-      postGuest({ id: '0', attending: false, firstName, lastName }).catch(
-        () => {},
-      );
+      postGuest({ firstName, lastName });
     }
-    loadGuests().catch(() => {});
   }, [firstName, lastName]);
   return (
     <>

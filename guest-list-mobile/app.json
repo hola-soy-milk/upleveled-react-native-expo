@@ -1,7 +1,6 @@
 {
   "expo": {
-    "name": "Guest List",
-    "scheme": "guest-list-mobile",
+    "name": "guest-list-mobile",
     "slug": "guest-list-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,35 +9,32 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#f0e5cf"
+      "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#f0e5cf"
-      },
-      "package": "com.hola_soy_milk.guestlistmobile"
+        "backgroundColor": "#ffffff"
+      }
     },
+    "scheme": "guest-list-mobile",
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "output": "server"
     },
     "plugins": [
-      "expo-router"
-    ],
-    "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "a1acaf69-939d-4848-a410-9826ebc944fb"
-      }
-    }
+      "expo-font",
+      [
+        "expo-router",
+        {
+          "origin": "https://evanbacon.dev/"
+        }
+      ]
+    ]
   }
 }
