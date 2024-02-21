@@ -547,8 +547,8 @@ const styles = StyleSheet.create({
 });
 
 export default function NewGuest() {
-  const [firstName, onFirstName] = useState('');
-  const [lastName, onLastName] = useState('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
   return (
     <>
       <TextInput
@@ -652,12 +652,15 @@ In `app/index.tsx`, let's adapt our `useEffect` callback:
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstName, lastName }),
+        body: JSON.stringify({
+          firstName: guest.firstName,
+          lastName: guest.lastName,
+        }),
       });
       const newGuest: Guest = await response.json();
-      setGuests([...guests, newGuest]);
+      setGuests((g) => [...g, newGuest]);
     }
-    loadGuests();
+    loadGuests().catch(console.error);
 
     if (typeof firstName === 'string' && typeof lastName === 'string') {
       postGuest({ firstName, lastName });
