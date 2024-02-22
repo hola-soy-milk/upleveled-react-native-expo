@@ -1,5 +1,3 @@
-// Expo router Page to display a single user
-
 import { useEffect, useState } from 'react';
 
 import { useLocalSearchParams } from 'expo-router';
