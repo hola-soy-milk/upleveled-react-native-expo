@@ -672,6 +672,101 @@ What's this constant we see? Why at the top of the file, add our API URL!
 
 ## 💁 Single guest dynamic routes
 
+Create a new file called `guests/[id].tsx`:
+
+```typescript
+import { useEffect, useState } from 'react';
+
+import { useLocalSearchParams } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
+
+import { colors } from '../../styles/constants';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  text: {
+    color: colors.text,
+  },
+});
+
+type Guest = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  deadline?: string;
+  attending: boolean;
+};
+
+const API_URL =
+  'https://37820499-b115-4574-94d1-64870873aef3-00-2o18dc9ex4s5s.spock.replit.dev';
+
+export default function Guests() {
+  const { id } = useLocalSearchParams();
+
+  const [guest, setGuest] = useState<Guest>();
+
+  useEffect(() => {
+    async function loadGuest() {
+      try {
+        if (typeof id !== 'string') {
+          return;
+        }
+        const response = await fetch(`${API_URL}/guests/${id}`);
+        const fetchedGuest = await response.json();
+        setGuest(fetchedGuest);
+      } catch (error) {
+        console.error('Error fetching guest', error);
+      }
+    }
+    loadGuest().catch(console.error);
+  }, [id]);
+
+  if (!guest) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>
+        {guest.firstName} {guest.lastName}
+      </Text>
+      <Text style={styles.text}>
+        {guest.attending ? 'Attending' : 'Not attending'}
+      </Text>
+    </View>
+  );
+}
+```
+
+Back in `/components/GuestItem.tsx`:
+
+```typescript
+export default function GuestItem({ guest }: Props) {
+  const { id, firstName, lastName, attending } = guest;
+  const openGuest = () => {
+    router.push({
+      pathname: `/guests/[id]`,
+      params: { id },
+    });
+  };
+  return (
+    <TouchableOpacity style={styles.card} onPress={openGuest}>
+      <Text style={styles.center}>
+        {firstName} {lastName}
+      </Text>
+      <Text style={styles.right}>{attending ? 'Coming!' : 'Not coming.'}</Text>
+    </TouchableOpacity>
+  );
+}
+```
+
 ## 🛜 Push it all to GitHub!
 
 ## 🍪 What about cookies?
+
+## 🚀 Deployment!
+
+## 🗺️ API Routes
