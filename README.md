@@ -767,6 +767,10 @@ export default function GuestItem({ guest }: Props) {
 
 ## 🍪 What about cookies?
 
+Any cookies returned in the `Set-Cookie` HTTP response header (eg. an API response) will be saved by the `fetch()` implementation from in React Native. They will be then sent in each subsequent HTTP request to that same origin.
+
+These cookies will **not** be accessible to your JavaScript / TypeScript code in the React Native part of your application. However, you shouldn't need them in the use case of secure HTTP-only cookies such as `sessionToken`.
+
 ## 🚀 Deployment!
 
 ## 🗺️ API Routes
