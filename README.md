@@ -553,13 +553,13 @@ export default function NewGuest() {
     <>
       <TextInput
         style={styles.input}
-        onChangeText={onFirstName}
+        onChangeText={setFirstName}
         placeholder="First Name"
         value={firstName}
       />
       <TextInput
         style={styles.input}
-        onChangeText={onLastName}
+        onChangeText={setLastName}
         placeholder="Last Name"
         value={lastName}
       />
